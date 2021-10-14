@@ -5,14 +5,16 @@ class ComputerPlayer(Player):
 
     def __init__(self):
         super().__init__()
-    def takeTurn(self):
+    def takeTurn(self, otherPlayer):
         startx = random.randrange(0, 10)
         starty = random.randrange(0, 10)
 
         if not self.gridShots.isSpaceWater(startx, starty):
-            self.takeTurn()
-
-        self.gridShots.changeSingleSpace(startx, starty, "X")
+            self.takeTurn(otherPlayer)
+        if not otherPlayer.gridShips.isSpaceWater(startx, starty):
+            self.gridShots.changeSingleSpace(startx, starty, "X")
+        else:
+            self.gridShots.changeSingleSpace(startx, starty, "O")
 
     def createShipGrid(self):
         self.placeShip("A", 5)
@@ -54,5 +56,5 @@ cpu.createShipGrid()
 cpu.printGrids()
 
 for i in range(100):
-    cpu.takeTurn()
+    cpu.takeTurn(cpu)
     cpu.printGrids()
