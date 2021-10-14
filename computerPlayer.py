@@ -4,8 +4,6 @@ import random
 class ComputerPlayer(Player):
 
     def __init__(self):
-        print("sus")
-
         super().__init__()
 
     def createShipGrid(self):
@@ -29,8 +27,7 @@ class ComputerPlayer(Player):
                     self.placeShip(ship, size)
                     return
 
-            for i in range(0, size):
-                self.gridShips.changeSingleSpace(startx + i, starty, ship)
+            self.gridShips.changeRow(starty, ship, startx, size)
 
         if rotate == 1:
             for i in range(0, size):
@@ -41,8 +38,7 @@ class ComputerPlayer(Player):
                     self.placeShip(ship, size)
                     return
 
-            for i in range(0, size):
-                self.gridShips.changeSingleSpace(startx, starty + i, ship)
+            self.gridShips.changeCol(startx, ship, starty, size)
 
 cpu = ComputerPlayer()
 cpu.printGrids()
