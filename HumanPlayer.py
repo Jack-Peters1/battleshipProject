@@ -11,11 +11,19 @@ class HumanPlayer(Player):
             vOrH = str(input("Do you want ship " + ship + " vertically or horizontally? Enter V or H."))
             colStart = int(input("What column do you want ship " + ship + " to start in? 1-10."))
             rowStart = int(input("What row do you want ship " + ship + " to start in? 1-10."))
-            if self.isPlacementLegal(self.gridShips.grid, rowStart - 1, colStart - 1):
+
+
+            if self.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
                 if vOrH == "V" or vOrH == "v":
-                    self.gridShips.changeCol(colStart-1, ship, rowStart-1, size)
+                    if rowStart-1 + size <= 9:
+                        self.gridShips.changeCol(colStart-1, ship, rowStart-1, size)
+                    else:
+                        print("Your ship goes out of bounds - please try again")
+                        count+=1
                 elif vOrH == "H" or vOrH == "h":
-                    self.gridShips.changeRow(rowStart-1, ship, colStart-1, size)
+                    if colStart-1 + size <= 9:
+                        self.gridShips.changeRow(rowStart-1, ship, colStart-1, size)
+
             else:
                 print("Placement illegal, please try again")
                 count+=1
