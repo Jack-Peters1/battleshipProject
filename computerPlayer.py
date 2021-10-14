@@ -15,8 +15,8 @@ class ComputerPlayer(Player):
 
     def placeShip(self, ship, size):
         rotate = random.randint(0, 1)
-        startx = random.randrange(1, 10)
-        starty = random.randrange(1, 10)
+        startx = random.randrange(0, 9)
+        starty = random.randrange(0, 9)
 
         if rotate == 0:
             for i in range(0, size):
