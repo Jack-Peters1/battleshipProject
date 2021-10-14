@@ -9,7 +9,7 @@ class ComputerPlayer(Player):
         startx = random.randrange(0, 10)
         starty = random.randrange(0, 10)
 
-        if not self.gridShips.isSpaceWater(startx, starty):
+        if not self.gridShots.isSpaceWater(startx, starty):
             self.takeTurn()
 
         self.gridShots.changeSingleSpace(startx, starty, "X")
@@ -53,6 +53,6 @@ cpu.printGrids()
 cpu.createShipGrid()
 cpu.printGrids()
 
-while True:
+for i in range(100):
     cpu.takeTurn()
     cpu.printGrids()
