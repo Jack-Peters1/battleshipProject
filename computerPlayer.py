@@ -23,26 +23,26 @@ class ComputerPlayer(Player):
         if rotate == 0:
             for i in range(0, size):
                 if (startx + i >= 9):
-                    self.placeShip("A", size)
+                    self.placeShip(ship, size)
                     return
                 if self.isPlacementLegal(self.gridShips.grid, startx + i, starty) == False:
-                    self.placeShip("A", size)
+                    self.placeShip(ship, size)
                     return
 
             for i in range(0, size):
-                self.gridShips.changeSingleSpace(startx + i, starty, "H")
+                self.gridShips.changeSingleSpace(startx + i, starty, ship)
 
         if rotate == 1:
             for i in range(0, size):
                 if (starty + i >= 9):
-                    self.placeShip("A", size)
+                    self.placeShip(ship, size)
                     return
                 if self.isPlacementLegal(self.gridShips.grid, startx, starty + i) == False:
-                    self.placeShip("A", size)
+                    self.placeShip(ship, size)
                     return
 
             for i in range(0, size):
-                self.gridShips.changeSingleSpace(startx, starty + i, "H")
+                self.gridShips.changeSingleSpace(startx, starty + i, ship)
 
 cpu = ComputerPlayer()
 cpu.printGrids()
