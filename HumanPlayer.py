@@ -19,24 +19,24 @@ class HumanPlayer(Player):
                             self.gridShips.changeCol(colStart-1, ship, rowStart-1, size)
                         else:
                             print("Your ship goes out of bounds - please try again")
-                            count+=1
+                            count += 1
                     elif vOrH == "H" or vOrH == "h":
                         if colStart-1 + size <= 9:
                             self.gridShips.changeRow(rowStart-1, ship, colStart-1, size)
                         else:
                             print("Your ship goes out of bounds - please try again")
-                            count+=1
+                            count += 1
                     else:
                         print("Illegal value entered - try again.")
-                        count+=1
+                        count += 1
                 else:
                     print("Placement illegal, please try again")
-                    count+=1
+                    count += 1
             else:
                 print("Placement illegal, please try again")
-                count+=1
+                count += 1
             self.printGrids()
-            count-=1
+            count -= 1
 
 
 
@@ -47,14 +47,14 @@ class HumanPlayer(Player):
             rowStart = int(input("What row do you want to take your shot in? 1-10."))
             if colStart > 10 or rowStart > 10 or colStart < 1 or rowStart < 1:
                 print("Illegal coordinates - Try again")
-                count+=1
+                count += 1
             elif playerGrid.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
                 self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "0")
                 print("Sorry! Your shot missed and landed in the water.")
             else:
                 self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "X")
                 print("You got a hit!")
-        count-=1
+        count -= 1
         pass
 
     def createShipGrid(self):
