@@ -18,9 +18,9 @@ class Player:
     # Send it the grid you want to check, so ship or shot
     def isPlacementLegal(self , grid, row , col ):
         if( grid[row][col] == "~"):
-            return true
+            return True
         else:
-            return false
+            return False
 
     def createShipGrid(self):
         placeShip( "A" , 5 )
