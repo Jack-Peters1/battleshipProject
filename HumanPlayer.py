@@ -22,6 +22,13 @@ class HumanPlayer(Player):
             self.printGrids()
             count-=1
 
+    def takeTurn(self):
+        colStart = int(input("What column do you want to take your shot in?"))
+        rowStart = int(input("What row do you want to take your shot in?"))
+        self.gridShots.changeSingleSpace(self, rowStart, colStart, "X")
+
+        pass
+
     def createShipGrid(self):
         self.placeShip( "A" , 5 )
         self.placeShip( "B", 4 )
