@@ -6,7 +6,6 @@ class ComputerPlayer(Player):
     def __init__(self):
         super().__init__()
         self.firstHit = False
-        self.shotCount = 1
     def findFirstX(self):
         while True and self.firstHit:
             col = random.randint(0, 9)
@@ -18,17 +17,24 @@ class ComputerPlayer(Player):
         direction = random.randint(1, 4)
         startx = -1
         starty = -1
+
+        smartShotInvalid = False
+
         if not self.firstHit:
             startx = random.randrange(0, 10)
             starty = random.randrange(0, 10)
         else:
             target = self.findFirstX()
-            if (target[1] < 0 and direction == 1) or (target[1] >= 9 and direction == 2) or (target[0] < 0 and direction == 3) or (target[0] >= 9 and direction == 4):
-                print(target)
-                print("here")
-                startx = random.randrange(0, 10)
-                starty = random.randrange(0, 10)
-            elif (self.gridShots.isSpaceWater(target[0], target[1] - 1) == False) and (self.gridShots.isSpaceWater(target[0], target[1] + 1) == False) and (self.gridShots.isSpaceWater(target[0] - 1, target[1]) == False) and (self.gridShots.isSpaceWater(target[0] + 1, target[1])  == False):
+
+            try:
+                self.gridShots.isSpaceWater(target[0], target[1] - 1)
+                self.gridShots.isSpaceWater(target[0], target[1] + 1)
+                self.gridShots.isSpaceWater(target[0] - 1, target[1])
+                self.gridShots.isSpaceWater(target[0] + 1, target[1])
+            except:
+                smartShotInvalid = True
+
+            if smartShotInvalid or (self.gridShots.isSpaceWater(target[0], target[1] - 1) == False) and (self.gridShots.isSpaceWater(target[0], target[1] + 1) == False) and (self.gridShots.isSpaceWater(target[0] - 1, target[1]) == False) and (self.gridShots.isSpaceWater(target[0] + 1, target[1])  == False):
                 startx = random.randrange(0, 10)
                 starty = random.randrange(0, 10)
             elif(direction == 1): #up
@@ -47,8 +53,6 @@ class ComputerPlayer(Player):
         if not self.gridShots.isSpaceWater(startx, starty) or 0 > startx > 9 or 0 > starty > 9:
             self.takeTurn(otherPlayer)
         if not otherPlayer.gridShips.isSpaceWater(startx, starty):
-            print("Firing shot number ", self.shotCount)
-            self.shotCount += 1
             self.gridShots.changeSingleSpace(startx, starty, "X")
             self.firstHit = True
         else:
@@ -96,4 +100,4 @@ cpu.printGrids()
 for i in range(100):
     cpu.takeTurn(cpu)
     cpu.printGrids()
-    #print(cpu.findFirstX())
+    print("Grid after turn ", i)
