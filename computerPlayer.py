@@ -6,14 +6,17 @@ class ComputerPlayer(Player):
     def __init__(self):
         super().__init__()
     def takeTurn(self, otherPlayer):
+
         startx = random.randrange(0, 10)
         starty = random.randrange(0, 10)
 
         if not self.gridShots.isSpaceWater(startx, starty):
             self.takeTurn(otherPlayer)
-        if not otherPlayer.gridShips.isSpaceWater(startx, starty):
+
+        if not otherPlayer.gridShips.isSpaceWater(startx, starty) and not otherPlayer.gridShips.returnLocation(startx, starty) == "O":
             self.gridShots.changeSingleSpace(startx, starty, "X")
             otherPlayer.gridShips.changeSingleSpace(startx, starty, "X")
+
         else:
             self.gridShots.changeSingleSpace(startx, starty, "O")
             otherPlayer.gridShips.changeSingleSpace(startx, starty, "O")
