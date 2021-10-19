@@ -19,10 +19,21 @@ class HumanPlayer(Player):
 
     def placeShip(self , ship , size):
         count = 1
-        while count>0:
-            vOrH = str(input("Do you want ship " + ship + " vertically or horizontally? Enter V or H."))
-            colStart = int(input("What column do you want ship " + ship + " to start in? 1-10."))
-            rowStart = int(input("What row do you want ship " + ship + " to start in? 1-10."))
+        if ship == "A" or ship == "a":
+            shipName = "Aircraft Carrier"
+        elif ship == "B" or ship == "b":
+            shipName = "Battleship"
+        elif ship == "C" or ship == "c":
+            shipName = "Cruiser"
+        elif ship == "D" or ship == "d":
+            shipName = "Destroyer"
+        elif ship == "S" or ship == "s":
+            shipName = "Submarine"
+
+        while count > 0:
+            vOrH = str(input("Do you want your " + shipName + " vertically or horizontally? Enter V or H."))
+            colStart = int(input("What column do you want your " + shipName + " to start in? 1-10."))
+            rowStart = int(input("What row do you want your " + shipName + " to start in? 1-10."))
 
             if 10 >= colStart >= 1 and 10 >= rowStart >= 1 and self.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
                 if vOrH == "V" or vOrH == "v":
@@ -63,32 +74,32 @@ class HumanPlayer(Player):
             if colStart > 10 or rowStart > 10 or colStart < 1 or rowStart < 1:
                 print("Illegal coordinates - Try again")
                 count += 1
-
-            if playerGrid.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
-                self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "0")
+            elif playerGrid.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
+                self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "O")
+                playerGrid.gridShips.changeSingleSpace(self, rowStart-1, colStart-1, "O")
                 print("Sorry! Your shot missed and landed in the water.")
             else:
                 self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "X")
                 print("You got a hit!")
-                ship = playerGrid.gridShips.returnLocation(rowStart-1, colStart-1)
+                shipTemp = playerGrid.gridShips.returnLocation(rowStart-1, colStart-1)
                 playerGrid.gridShips.changeSingleSpace(self, rowStart-1, colStart-1, "X")
-                count = 0
+                count2 = 0
                 for i in range(10):
                     for j in range(10):
-                        if playerGrid.gridShips.returnLocation(i, j) == ship:
-                            count+=1
-                if count == 0:
-                    if ship == "A" or ship == "a":
+                        if playerGrid.gridShips.returnLocation(i, j) == shipTemp:
+                            count2 += 1
+                if count2 == 0:
+                    if shipTemp == "A" or shipTemp == "a":
                         print("You sunk the enemies Aircraft Carrier!")
-                    elif ship == "B" or ship == "b":
+                    elif shipTemp == "B" or shipTemp == "b":
                         print("You sunk the enemies Battleship!")
-                    elif ship == "C" or ship == "c":
+                    elif shipTemp == "C" or shipTemp == "c":
                         print("You sunk the enemies Cruiser!")
-                    elif ship == "D" or ship == "d":
+                    elif shipTemp == "D" or shipTemp == "d":
                         print("You sunk the enemies Destroyer!")
-                    elif ship == "S" or ship == "s":
+                    elif shipTemp == "S" or shipTemp == "s":
                         print("You sunk the enemies Submarine!")
-            count-=1
+            count -= 1
 
 
 
@@ -100,7 +111,7 @@ class HumanPlayer(Player):
     def stillHasShips(self):
         for j in range(10):
             for k in range(10):
-                if not self.gridShips.returnLocation(j, k) == "~" or not self.gridShips.returnLocation(j, k) == "X":
+                if not self.gridShips.returnLocation(j, k) == "~" and not self.gridShips.returnLocation(j, k) == "X" and not self.gridShips.returnLocation(j, k) == "O":
                     return True
         return False
 
