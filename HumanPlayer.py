@@ -118,17 +118,3 @@ class HumanPlayer(Player):
                 if not self.gridShips.returnLocation(j, k) == "~" and not self.gridShips.returnLocation(j, k) == "X" and not self.gridShips.returnLocation(j, k) == "O":
                     return True
         return False
-
-
-
-
-
-    def createShipGrid(self):
-        self.placeShip( "A" , 5 )
-        self.placeShip( "B", 4 )
-        self.placeShip( "C", 3 )
-        self.placeShip( "S", 3 )
-        self.placeShip( "D", 2 )
-
-player = HumanPlayer()
-player.createShipGrid()
