@@ -13,6 +13,18 @@ class ComputerPlayer(Player):
             if(self.gridShots.returnLocation(row, col) == "X"):
                 return [row, col]
         return [-1, -1]
+
+    def checkOverlapping(self, size, vOrH, rowStart, colStart):
+        if vOrH == 0:
+            for i in range(size):
+                if not self.gridShips.isSpaceWater(i, colStart - 1):
+                    return False
+        elif vOrH == 1:
+            for k in range(size):
+                if not self.gridShips.isSpaceWater(rowStart-1, k):
+                    return False
+        return True
+
     def takeTurn(self, otherPlayer):
         direction = random.randint(1, 4)
         startx = -1
@@ -50,13 +62,15 @@ class ComputerPlayer(Player):
                 startx = target[0] + 1
                 starty = target[1]
 
-        if not self.gridShots.isSpaceWater(startx, starty) or 0 > startx > 9 or 0 > starty > 9:
+        if (not self.gridShots.isSpaceWater(startx, starty)) or (0 > startx > 9 or 0 > starty > 9):
             self.takeTurn(otherPlayer)
-        if not otherPlayer.gridShips.isSpaceWater(startx, starty):
+        if not otherPlayer.gridShips.isSpaceWater(startx, starty) and not otherPlayer.gridShips.returnLocation(startx, starty) == "O":
             self.gridShots.changeSingleSpace(startx, starty, "X")
+            otherPlayer.gridShips.changeSingleSpace(startx, starty, "X")
             self.firstHit = True
         else:
             self.gridShots.changeSingleSpace(startx, starty, "O")
+            otherPlayer.gridShips.changeSingleSpace(startx, starty, "O")
 
     def createShipGrid(self):
         self.placeShip("A", 5)
@@ -66,38 +80,50 @@ class ComputerPlayer(Player):
         self.placeShip("D", 2)
 
     def placeShip(self, ship, size):
-        rotate = random.randint(0, 1)
-        startx = random.randrange(0, 10)
-        starty = random.randrange(0, 10)
+        count = 1
+        while count > 0:
+            vOrH = random.randint(0, 1)
+            colStart = random.randint(1, 10)
+            rowStart = random.randint(1, 10)
 
-        if rotate == 0:
-            for i in range(0, size):
-                if (startx + i >= 9):
-                    self.placeShip(ship, size)
-                    return
-                if not self.gridShips.isSpaceWater(startx + i, starty):
-                    self.placeShip(ship, size)
-                    return
+            if 10 >= colStart >= 1 and 10 >= rowStart >= 1 and self.gridShips.isSpaceWater(rowStart - 1, colStart - 1):
+                if vOrH == 0:
+                    if rowStart - 1 + size <= 9 and self.checkOverlapping(size, vOrH, rowStart, colStart):
+                        self.gridShips.changeCol(colStart - 1, ship, rowStart - 1, size)
+                        self.printGrids()
+                    else:
+                        count += 1
+                elif vOrH == 1:
+                    if colStart - 1 + size <= 9 and self.checkOverlapping(size, vOrH, rowStart, colStart):
+                        self.gridShips.changeRow(rowStart - 1, ship, colStart - 1, size)
+                        self.printGrids()
+                    else:
+                        count += 1
+                else:
+                    count += 1
+            else:
+                count += 1
+            count -= 1
 
-            self.gridShips.changeRow(starty, ship, startx, size)
+        # this method will determine if the Player's ship grid still
+        # has ships or not
+        # If they have no ships left, the other player wins
+        # This method returns true if they still have ships
+        # This method returns false if they don't have ships
 
-        if rotate == 1:
-            for i in range(0, size):
-                if (starty + i >= 9):
-                    self.placeShip(ship, size)
-                    return
-                if not self.gridShips.isSpaceWater(startx, starty + i):
-                    self.placeShip(ship, size)
-                    return
+    def stillHasShips(self):
+        for j in range(10):
+            for k in range(10):
+                if not self.gridShips.returnLocation(j, k) == "~" or not self.gridShips.returnLocation(j,k) == "X" or not self.gridShips.returnLocation(j, k) == "O":
+                    return True
+        return False
 
-            self.gridShips.changeCol(startx, ship, starty, size)
 
 cpu = ComputerPlayer()
 cpu.printGrids()
 cpu.createShipGrid()
 cpu.printGrids()
 
-for i in range(100):
+while cpu.stillHasShips():
     cpu.takeTurn(cpu)
     cpu.printGrids()
-    print("Grid after turn ", i)
