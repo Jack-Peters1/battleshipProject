@@ -124,6 +124,6 @@ cpu.printGrids()
 cpu.createShipGrid()
 cpu.printGrids()
 
-while cpu.stillHasShips():
+for i in range(100):
     cpu.takeTurn(cpu)
     cpu.printGrids()
