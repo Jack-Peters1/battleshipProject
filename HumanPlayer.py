@@ -113,8 +113,8 @@ class HumanPlayer(Player):
     # This method returns true if they still have ships
     # This method returns false if they don't have ships
     def stillHasShips(self):
-        for j in range(10):
-            for k in range(10):
+        for j in range(10): # traverse grid
+            for k in range(10): # below, check if value is a ship, if yes return true
                 if not self.gridShips.returnLocation(j, k) == "~" and not self.gridShips.returnLocation(j, k) == "X" and not self.gridShips.returnLocation(j, k) == "O":
                     return True
         return False
