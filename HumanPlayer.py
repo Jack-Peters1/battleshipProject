@@ -75,7 +75,7 @@ class HumanPlayer(Player):
         while count >0: # main while loop to ask where they want to shoot
             colStart = int(input("What column do you want to take your shot in? 1-10."))
             rowStart = int(input("What row do you want to take your shot in? 1-10."))
-            if colStart > 10 or rowStart > 10 or colStart < 1 or rowStart < 1: # check for legal coordinates
+            if colStart > 10 or rowStart > 10 or colStart < 1 or rowStart < 1 or colStart is None or rowStart is None : # check for legal coordinates
                 print("Illegal coordinates - Try again")
                 count += 1
             elif playerGrid.gridShips.isSpaceWater(rowStart - 1, colStart - 1): # checks if the player missed and sets values
