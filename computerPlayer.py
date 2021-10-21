@@ -71,7 +71,7 @@ class ComputerPlayer(Player):
     def stillHasShips(self):
         for j in range(10):
             for k in range(10):
-                if not self.gridShips.returnLocation(j, k) == "~" or not self.gridShips.returnLocation(j, k) == "X" or not self.gridShips.returnLocation(j, k) == "O":
+                if not self.gridShips.returnLocation(j, k) == "~" and not self.gridShips.returnLocation(j, k) == "X" and not self.gridShips.returnLocation(j, k) == "O":
                     return True
         return False
 
