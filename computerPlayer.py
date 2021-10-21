@@ -50,11 +50,13 @@ class ComputerPlayer(Player):
                 if vOrH == 0:
                     if rowStart - 1 + size <= 9 and self.checkOverlapping(size, vOrH, rowStart, colStart):
                         self.gridShips.changeCol(colStart - 1, ship, rowStart - 1, size)
+                        self.printGrids()
                     else:
                         count += 1
                 elif vOrH == 1:
                     if colStart - 1 + size <= 9 and self.checkOverlapping(size, vOrH, rowStart, colStart):
                         self.gridShips.changeRow(rowStart - 1, ship, colStart - 1, size)
+                        self.printGrids()
                     else:
                         count += 1
                 else:
@@ -62,7 +64,6 @@ class ComputerPlayer(Player):
             else:
                 count += 1
             count -= 1
-        self.printGrids()
 
         # this method will determine if the Player's ship grid still
         # has ships or not
