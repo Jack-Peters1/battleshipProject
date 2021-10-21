@@ -65,12 +65,6 @@ class HumanPlayer(Player):
     # asks the player where they want to shoot
     def takeTurn(self, playerGrid):
         count = 1
-        if not self.stillHasShips(): # checks if game is over
-            print("Sorry! all your ships have sunk and the game is over.")
-            pass
-        if not playerGrid.stillHasShips(): # checks if game is over
-            print("You have won and sunk all opponent ships!")
-            pass
 
         while count >0: # main while loop to ask where they want to shoot
             colStart = int(input("What column do you want to take your shot in? 1-10."))
@@ -88,7 +82,6 @@ class HumanPlayer(Player):
                 shipTemp = playerGrid.gridShips.returnLocation(rowStart-1, colStart-1)
                 playerGrid.gridShips.changeSingleSpace(rowStart-1, colStart-1, "X")
                 count2 = 0
-                self.printGrids()
                 for i in range(10): # traverse opponent ship grid and check if a ship was sunk
                     for j in range(10):
                         if playerGrid.gridShips.returnLocation(i, j) == shipTemp:
