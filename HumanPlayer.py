@@ -79,14 +79,14 @@ class HumanPlayer(Player):
                 print("Illegal coordinates - Try again")
                 count += 1
             elif playerGrid.gridShips.isSpaceWater(rowStart - 1, colStart - 1): # checks if the player missed and sets values
-                self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "O")
-                playerGrid.gridShips.changeSingleSpace(self, rowStart-1, colStart-1, "O")
+                self.gridShots.changeSingleSpace(rowStart-1, colStart-1, "O")
+                playerGrid.gridShips.changeSingleSpace(rowStart-1, colStart-1, "O")
                 print("Sorry! Your shot missed and landed in the water.")
             else: # if player got a hit, change values and then check if it was sunk
-                self.gridShots.changeSingleSpace(self, rowStart-1, colStart-1, "X")
+                self.gridShots.changeSingleSpace(rowStart-1, colStart-1, "X")
                 print("You got a hit!")
                 shipTemp = playerGrid.gridShips.returnLocation(rowStart-1, colStart-1)
-                playerGrid.gridShips.changeSingleSpace(self, rowStart-1, colStart-1, "X")
+                playerGrid.gridShips.changeSingleSpace(rowStart-1, colStart-1, "X")
                 count2 = 0
                 for i in range(10): # traverse opponent ship grid and check if a ship was sunk
                     for j in range(10):
