@@ -1,7 +1,7 @@
 from Player import Player
 import random
 
-class ComputerPlayer(Player):
+class smartComputerPlayer(Player):
 
     def __init__(self):
         super().__init__()
@@ -118,12 +118,3 @@ class ComputerPlayer(Player):
                     return True
         return False
 
-
-cpu = ComputerPlayer()
-cpu.printGrids()
-cpu.createShipGrid()
-cpu.printGrids()
-
-for i in range(100):
-    cpu.takeTurn(cpu)
-    cpu.printGrids()
