@@ -88,6 +88,7 @@ class HumanPlayer(Player):
                 shipTemp = playerGrid.gridShips.returnLocation(rowStart-1, colStart-1)
                 playerGrid.gridShips.changeSingleSpace(rowStart-1, colStart-1, "X")
                 count2 = 0
+                self.printGrids()
                 for i in range(10): # traverse opponent ship grid and check if a ship was sunk
                     for j in range(10):
                         if playerGrid.gridShips.returnLocation(i, j) == shipTemp:
