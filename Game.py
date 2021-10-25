@@ -15,7 +15,7 @@ class Game:
         while self.p1.stillHasShips() and self.cpu.stillHasShips():
             self.p1.takeTurn(self.cpu)
             self.cpu.takeTurn(self.p1)
-            self.printGrids()
+            self.p1.printGrids()
 
         if not self.p1.stillHasShips():
             print("You Lose")
