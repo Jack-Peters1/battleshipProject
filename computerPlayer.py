@@ -75,8 +75,5 @@ class ComputerPlayer(Player):
                     return True
         return False
 
-cpu = ComputerPlayer()
-cpu.printGrids()
-cpu.createShipGrid()
-cpu.printGrids()
+
 

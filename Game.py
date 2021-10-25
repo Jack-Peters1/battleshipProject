@@ -1,10 +1,10 @@
 from HumanPlayer import *
-from computerPlayer import *
+from smartComputerPlayer import *
 
 class Game:
     def __init__(self):
         self.p1 = HumanPlayer()
-        self.cpu = ComputerPlayer()
+        self.cpu = smartComputerPlayer()
 
     def createGrids(self):
         self.cpu.createShipGrid()
