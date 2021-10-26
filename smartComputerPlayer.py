@@ -120,6 +120,3 @@ class smartComputerPlayer(Player):
                     return True
         return False
 
-cpu = smartComputerPlayer()
-cpu.createShipGrid()
-cpu.printGrids()
