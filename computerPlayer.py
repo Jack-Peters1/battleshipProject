@@ -77,5 +77,3 @@ class ComputerPlayer(Player):
                     return True
         return False
 
-
-
