@@ -27,5 +27,3 @@ class Game:
 
 g1 = Game()
 g1.main()
-
-

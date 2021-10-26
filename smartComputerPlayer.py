@@ -15,13 +15,15 @@ class smartComputerPlayer(Player):
         return [-1, -1]
 
     def checkOverlapping(self, size, vOrH, rowStart, colStart):
-        if vOrH == 0:
-            for i in range(size):
-                if not self.gridShips.isSpaceWater(i, colStart - 1):
+        if vOrH == 0:  # if vertical, check veritcaly for overlaps
+            for i in range(size):  # traverse grid based on ship size
+                if not self.gridShips.isSpaceWater(i + rowStart - 1,
+                                                   colStart - 1):  # if there is an overlap, return false
                     return False
-        elif vOrH == 1:
-            for k in range(size):
-                if not self.gridShips.isSpaceWater(rowStart-1, k):
+        elif vOrH == 1:  # if horozontal, check for overlaps.
+            for k in range(size):  # traverse grid based on ship size
+                if not self.gridShips.isSpaceWater(rowStart - 1,
+                                                   k + colStart - 1):  # if there is an overlap return false
                     return False
         return True
 
@@ -118,3 +120,6 @@ class smartComputerPlayer(Player):
                     return True
         return False
 
+cpu = smartComputerPlayer()
+cpu.createShipGrid()
+cpu.printGrids()
