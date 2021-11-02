@@ -6,6 +6,12 @@ class smartComputerPlayer(Player):
     def __init__(self):
         super().__init__()
         self.firstHit = False
+
+        self.shotXTemp = -1
+        self.shotYTemp = -1
+        self.shotXReverse = 10
+        self.shotYReverse = -1
+
     def findFirstX(self):
         while True and self.firstHit:
             col = random.randint(0, 9)
@@ -28,7 +34,17 @@ class smartComputerPlayer(Player):
         return True
 
     def shootRandom(self):
-        return [random.randrange(0, 10), random.randrange(0, 10)] #returns randomx and randomy
+        while self.shotXTemp < 10:
+            self.shotXTemp +=1
+            self.shotYTemp +=1
+            return [self.shotXTemp, self.shotYTemp] #returns randomx and randomy
+        while self.shotXReverse > 0:
+            self.shotXReverse -= 1
+            self.shotYReverse += 1
+            return [self.shotXTemp, self.shotYTemp] #returns randomx and randomy
+
+
+
     def takeTurn(self, otherPlayer):
         direction = random.randint(1, 4)
         startx = -1
