@@ -34,7 +34,7 @@ class smartComputerPlayer(Player):
         return True
 
     def shootRandom(self):
-        while self.shotXTemp < 10:
+        while self.shotXTemp < 9:
             self.shotXTemp +=1
             self.shotYTemp +=1
             return [self.shotXTemp, self.shotYTemp] #returns randomx and randomy
