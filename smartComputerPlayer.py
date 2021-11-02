@@ -27,6 +27,8 @@ class smartComputerPlayer(Player):
                     return False
         return True
 
+    def shootRandom(self):
+        return [random.randrange(0, 10), random.randrange(0, 10)] #returns randomx and randomy
     def takeTurn(self, otherPlayer):
         direction = random.randint(1, 4)
         startx = -1
@@ -35,8 +37,9 @@ class smartComputerPlayer(Player):
         smartShotInvalid = False
 
         if not self.firstHit:
-            startx = random.randrange(0, 10)
-            starty = random.randrange(0, 10)
+            self.shootSpot = self.shootRandom()
+            startx = self.shootSpot[0]
+            starty = self.shootSpot[1]
         else:
             target = self.findFirstX()
 
@@ -49,8 +52,9 @@ class smartComputerPlayer(Player):
                 smartShotInvalid = True
 
             if smartShotInvalid or (self.gridShots.isSpaceWater(target[0], target[1] - 1) == False) and (self.gridShots.isSpaceWater(target[0], target[1] + 1) == False) and (self.gridShots.isSpaceWater(target[0] - 1, target[1]) == False) and (self.gridShots.isSpaceWater(target[0] + 1, target[1])  == False):
-                startx = random.randrange(0, 10)
-                starty = random.randrange(0, 10)
+                self.shootSpot = self.shootRandom()
+                startx = self.shootSpot[0]
+                starty = self.shootSpot[1]
             elif(direction == 1): #up
                 startx = target[0]
                 starty = target[1] - 1
