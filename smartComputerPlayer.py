@@ -11,9 +11,9 @@ class smartComputerPlayer(Player):
         self.shotYTemp = -1
         self.shotXReverse = 10
         self.shotYReverse = -1
-
+    #finds the first hit
     def findFirstX(self):
-        while True and self.firstHit:
+        while True and self.firstHit: #while there has been a hit, find it
             col = random.randint(0, 9)
             row = random.randint(0, 9)
             if(self.gridShots.returnLocation(row, col) == "X"):
@@ -33,13 +33,13 @@ class smartComputerPlayer(Player):
                     return False
         return True
 
-    def shootRandom(self):
-        if self.shotXTemp < 9:
+    def shootRandom(self): #shooting random algorithm
+        if self.shotXTemp < 9: #adjust shots
             self.shotXTemp +=1
             self.shotYTemp +=1
             print("shooting at", self.shotXTemp, ", ", self.shotYTemp)
             return [self.shotXTemp, self.shotYTemp] #returns randomx and randomy
-        if self.shotXReverse > 0:
+        if self.shotXReverse > 0: #adjust shots
             self.shotXReverse -= 1
             self.shotYReverse += 1
             return [self.shotXReverse, self.shotYReverse] #returns randomx and randomy
@@ -55,7 +55,7 @@ class smartComputerPlayer(Player):
 
         smartShotInvalid = False
 
-        if not self.firstHit:
+        if not self.firstHit: #if there isnt a hit, go random
             self.shootSpot = self.shootRandom()
             startx = self.shootSpot[0]
             starty = self.shootSpot[1]
@@ -69,7 +69,7 @@ class smartComputerPlayer(Player):
                 self.gridShots.isSpaceWater(target[0] + 1, target[1])
             except:
                 smartShotInvalid = True
-
+            # this if statement shoots around a hit to try to hit the same ship
             if smartShotInvalid or (self.gridShots.isSpaceWater(target[0], target[1] - 1) == False) and (self.gridShots.isSpaceWater(target[0], target[1] + 1) == False) and (self.gridShots.isSpaceWater(target[0] - 1, target[1]) == False) and (self.gridShots.isSpaceWater(target[0] + 1, target[1])  == False):
                 self.shootSpot = self.shootRandom()
                 startx = self.shootSpot[0]
@@ -86,7 +86,7 @@ class smartComputerPlayer(Player):
             elif (direction == 4):  # right
                 startx = target[0] + 1
                 starty = target[1]
-
+        #recursion to shoot if shot is invalid
         if (not self.gridShots.isSpaceWater(startx, starty)) or (0 > startx > 9 or 0 > starty > 9):
             self.takeTurn(otherPlayer)
         if not otherPlayer.gridShips.isSpaceWater(startx, starty) and not otherPlayer.gridShips.returnLocation(startx, starty) == "O":
@@ -96,13 +96,6 @@ class smartComputerPlayer(Player):
         else:
             self.gridShots.changeSingleSpace(startx, starty, "O")
             otherPlayer.gridShips.changeSingleSpace(startx, starty, "O")
-
-    def createShipGrid(self):
-        self.placeShip("A", 5)
-        self.placeShip("B", 4)
-        self.placeShip("C", 3)
-        self.placeShip("S", 3)
-        self.placeShip("D", 2)
 
     def placeShip(self, ship, size):
         count = 1
