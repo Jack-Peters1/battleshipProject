@@ -34,7 +34,19 @@ class smartComputerPlayer(Player):
         return True
 
     def shootRandom(self):
+        if self.shotXTemp < 9:
+            self.shotXTemp +=1
+            self.shotYTemp +=1
+            print("shooting at", self.shotXTemp, ", ", self.shotYTemp)
+            return [self.shotXTemp, self.shotYTemp] #returns randomx and randomy
+        if self.shotXReverse > 0:
+            self.shotXReverse -= 1
+            self.shotYReverse += 1
+            return [self.shotXReverse, self.shotYReverse] #returns randomx and randomy
+
         return [random.randrange(0, 10), random.randrange(0, 10)]
+
+
 
     def takeTurn(self, otherPlayer):
         direction = random.randint(1, 4)
@@ -134,5 +146,10 @@ class smartComputerPlayer(Player):
 cpu = smartComputerPlayer()
 
 cpu.createShipGrid()
+
+sus = 1
 while cpu.stillHasShips():
     cpu.takeTurn(cpu)
+    cpu.printGrids()
+    print("Turn ", sus)
+    sus += 1
