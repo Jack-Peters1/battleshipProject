@@ -135,14 +135,3 @@ class smartComputerPlayer(Player):
                 if not self.gridShips.returnLocation(j, k) == "~" and not self.gridShips.returnLocation(j,k) == "X" and not self.gridShips.returnLocation(j, k) == "O":
                     return True
         return False
-
-cpu = smartComputerPlayer()
-
-cpu.createShipGrid()
-
-sus = 1
-while cpu.stillHasShips():
-    cpu.takeTurn(cpu)
-    cpu.printGrids()
-    print("Turn ", sus)
-    sus += 1
